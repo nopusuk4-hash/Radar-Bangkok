@@ -1,0 +1,33 @@
+name: Auto Update Radar Map
+
+on:
+  schedule:
+    - cron: '*/10 * * * *' # สั่งให้หุ่นยนต์รันทุกๆ 10 นาที
+  workflow_dispatch: # เพิ่มปุ่มกดรันเองได้ด้วย
+
+jobs:
+  update-map:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Libraries
+        run: |
+          pip install numpy requests pillow folium branca
+
+      - name: Run Python Script
+        run: python main.py
+
+      - name: Commit and Push index.html
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Auto-update map" || exit 0
+          git push
