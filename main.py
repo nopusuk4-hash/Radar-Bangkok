@@ -9,7 +9,9 @@ from io import BytesIO
 import folium
 from branca.element import Template, MacroElement
 
-# --- ตั้งค่าเบื้องต้น ---
+# ==========================================
+# 1. ตั้งค่าเบื้องต้น
+# ==========================================
 STEP_KM = 0.4
 RADAR_RANGE_KM = 60.0
 CONFIGS = {
@@ -17,6 +19,9 @@ CONFIGS = {
     "Nong Khaem (หนองแขม)": {"url": "https://weather.bangkok.go.th/Images/Radar/nkradar.gif", "lat": 13.701, "lon": 100.338}
 }
 
+# ==========================================
+# 2. ฟังก์ชันแปลงสีเป็นความแรงฝน
+# ==========================================
 def rgb_to_dbz(r, g, b):
     r, g, b = int(r), int(g), int(b)
     rain_colors = [
@@ -36,26 +41,51 @@ def get_dbz_color(dbz):
     if dbz >= 20: return '#00FF00'
     return '#008000'
 
-# ดึงเวลาปัจจุบัน (ปรับเป็นเวลาไทย GMT+7)
+# ==========================================
+# 3. ฟังก์ชันดึงภาพเรดาร์ล่าสุด (แบบลูปเก็บทุกเฟรม ชัวร์ที่สุด)
+# ==========================================
+def get_latest_radar_rgb(url, station_name):
+    try:
+        print(f"📡 กำลังโหลดข้อมูลเรดาร์: {station_name}")
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        res = requests.get(url, headers=headers, timeout=20)
+        gif = Image.open(BytesIO(res.content))
+        frames = []
+        try:
+            while True:
+                frames.append(gif.copy())
+                gif.seek(gif.tell() + 1)
+        except EOFError: 
+            pass
+        
+        # แปลงเฟรมสุดท้ายเป็นอาเรย์
+        img = np.array(frames[-1].convert('RGB'))
+        print(f"✅ โหลดภาพสำเร็จ: {station_name} (ขนาด: {img.shape})")
+        return img
+    except Exception as e:
+        print(f"❌ Error โหลดภาพไม่สำเร็จ ({station_name}): {e}")
+        return None
+
+# ==========================================
+# 4. ประมวลผลข้อมูล (เวลา + สแกนเรดาร์)
+# ==========================================
 now = datetime.utcnow() + timedelta(hours=7)
 timestamp_str = now.strftime('%Y-%m-%d %H:%M:%S')
 date_str = now.strftime('%Y-%m-%d')
 
 all_rain_data = []
-csv_data = [] # สำหรับเตรียมบันทึกลง CSV
+csv_data = [] 
 
 for name, conf in CONFIGS.items():
-    try:
-        res = requests.get(conf["url"], headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
-        gif = Image.open(BytesIO(res.content))
-        gif.seek(gif.n_frames - 1)
-        img = np.array(gif.convert('RGB'))
+    img = get_latest_radar_rgb(conf["url"], name)
+    if img is not None:
         px_per_km = 300.0 / 60.0
         grid = np.arange(-RADAR_RANGE_KM, RADAR_RANGE_KM + STEP_KM, STEP_KM)
         for y_km in grid:
             for x_km in grid:
                 if math.sqrt(x_km**2 + y_km**2) > RADAR_RANGE_KM: continue
                 px, py = int(425 + (x_km * px_per_km)), int(380 - (y_km * px_per_km))
+                
                 if 0 <= px < img.shape[1] and 0 <= py < img.shape[0]:
                     dbz = rgb_to_dbz(*img[py, px])
                     if dbz > 0:
@@ -63,27 +93,28 @@ for name, conf in CONFIGS.items():
                         lon = conf["lon"] + (x_km/(111.0*math.cos(math.radians(conf["lat"]))))
                         all_rain_data.append([lat, lon, dbz])
                         csv_data.append([timestamp_str, name, lat, lon, dbz])
-    except: pass
 
 # ==========================================
-# 1. แอบบันทึกข้อมูลดิบลงไฟล์ CSV (แยกตามวัน)
+# 5. บันทึกข้อมูลลงไฟล์ CSV (สร้างไฟล์เสมอแม้ไม่มีฝน)
 # ==========================================
-if csv_data:
-    os.makedirs("data", exist_ok=True) # สร้างโฟลเดอร์ชื่อ data
-    csv_filename = f"data/radar_{date_str}.csv"
-    df = pd.DataFrame(csv_data, columns=['Timestamp', 'Station', 'Latitude', 'Longitude', 'dBZ'])
-    
-    if os.path.exists(csv_filename):
-        # ถ้ามีไฟล์ของวันนี้แล้ว ให้เอาไปต่อท้าย (Append)
+os.makedirs("data", exist_ok=True)
+csv_filename = f"data/radar_{date_str}.csv"
+df = pd.DataFrame(csv_data, columns=['Timestamp', 'Station', 'Latitude', 'Longitude', 'dBZ'])
+
+if os.path.exists(csv_filename):
+    # ถ้ามีไฟล์ของวันนี้แล้ว ให้เอาไปต่อท้าย (Append)
+    # ถ้าเป็นตารางว่างๆ (ไม่มีฝน) ก็เซฟว่างๆ ไป เพื่อป้องกัน Error
+    if not df.empty:
         df.to_csv(csv_filename, mode='a', header=False, index=False)
-    else:
-        # ถ่ายังไม่มี (ขึ้นวันใหม่) ให้สร้างใหม่พร้อมหัวตาราง
-        df.to_csv(csv_filename, index=False)
+else:
+    # ถ้ายังไม่มี (ขึ้นวันใหม่) ให้สร้างใหม่พร้อมหัวตาราง (สร้างรอไว้เลยแม้ไม่มีฝน)
+    df.to_csv(csv_filename, index=False)
+
+print(f"💾 อัปเดต CSV เรียบร้อย: {csv_filename} (พบจุดฝนรอบนี้: {len(csv_data)} จุด)")
 
 # ==========================================
-# 2. สร้างแผนที่ (เพิ่มหมุดและรัศมี)
+# 6. สร้างแผนที่ (เพิ่มหมุดและรัศมี)
 # ==========================================
-# ซูมออกนิดนึง (zoom_start=10) เพื่อให้เห็นวงกลมชัดขึ้น
 m = folium.Map(location=[13.75, 100.5], zoom_start=10, tiles='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attr='©CartoDB')
 
 # วาดสถานีและวงกลมรัศมี 60 กม.
@@ -96,7 +127,7 @@ for name, conf in CONFIGS.items():
     
     folium.Circle(
         location=[conf["lat"], conf["lon"]],
-        radius=RADAR_RANGE_KM * 1000, # รัศมี 60 กิโลเมตร
+        radius=RADAR_RANGE_KM * 1000,
         color='blue', weight=1, fill=False, dash_array='5, 5',
         popup=f"ขอบเขต 60 กม. ({name})"
     ).add_to(m)
@@ -125,5 +156,6 @@ macro = MacroElement()
 macro._template = Template(legend_html)
 m.get_root().add_child(macro)
 
-# บันทึกทับไฟล์
+# บันทึกไฟล์ HTML
 m.save("index.html")
+print("🗺️ อัปเดตแผนที่ index.html เรียบร้อย!")
