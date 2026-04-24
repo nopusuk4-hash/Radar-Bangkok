@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_e5e0c990b27acb28e9858c8c95ef38b9 {
+                #map_be1dbe5df8426182b51186fc624af74c {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,19 +54,33 @@
 <body>
     
     
-            <div class="folium-map" id="map_e5e0c990b27acb28e9858c8c95ef38b9" ></div>
+            <div class="folium-map" id="map_be1dbe5df8426182b51186fc624af74c" ></div>
         
+    
+<div style="
+    position: fixed; bottom: 30px; left: 30px; width: 170px; 
+    background-color: white; border:2px solid #ccc; z-index:9999; font-size:12px;
+    padding: 10px; border-radius: 8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    ">
+    <b style="font-size:13px;">ระดับความแรงฝน (dBZ)</b><br>
+    <i style="background:#FF00FF;width:12px;height:12px;display:inline-block;margin-top:5px;"></i> 60+ (หนักมาก)<br>
+    <i style="background:#FF0000;width:12px;height:12px;display:inline-block"></i> 50-60 (หนัก)<br>
+    <i style="background:#FF8000;width:12px;height:12px;display:inline-block"></i> 40-50 (ปานกลาง)<br>
+    <i style="background:#FFFF00;width:12px;height:12px;display:inline-block"></i> 30-40 (กำลังอ่อน)<br>
+    <i style="background:#00FF00;width:12px;height:12px;display:inline-block"></i> 20-30 (เบา)<br>
+    <i style="background:#008000;width:12px;height:12px;display:inline-block"></i> 15-20 (ละออง)
+</div>
 </body>
 <script>
     
     
-            var map_e5e0c990b27acb28e9858c8c95ef38b9 = L.map(
-                "map_e5e0c990b27acb28e9858c8c95ef38b9",
+            var map_be1dbe5df8426182b51186fc624af74c = L.map(
+                "map_be1dbe5df8426182b51186fc624af74c",
                 {
                     center: [13.75, 100.5],
                     crs: L.CRS.EPSG3857,
                     ...{
-  "zoom": 10,
+  "zoom": 11,
   "zoomControl": true,
   "preferCanvas": false,
 }
@@ -78,7 +92,7 @@
 
         
     
-            var tile_layer_026784b61591a2f9ae8b288a100d8b5a = L.tileLayer(
+            var tile_layer_53d2f24dfe356b5982362d6a2a654f71 = L.tileLayer(
                 "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
                 {
   "minZoom": 0,
@@ -95,95 +109,7 @@
             );
         
     
-            tile_layer_026784b61591a2f9ae8b288a100d8b5a.addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
-        
-    
-            var marker_23c06003583fb8533d5e00cef03b3792 = L.marker(
-                [13.861, 100.862],
-                {
-}
-            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
-        
-    
-            var icon_08c4f21ce3a661fad79f1050b78fd0eb = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_5bccc7e7c3958a96bc2afe8e63f6b5f1 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_11f9f738f08a1888e30438c733f14767 = $(`<div id="html_11f9f738f08a1888e30438c733f14767" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Chok</div>`)[0];
-                popup_5bccc7e7c3958a96bc2afe8e63f6b5f1.setContent(html_11f9f738f08a1888e30438c733f14767);
-            
-        
-
-        marker_23c06003583fb8533d5e00cef03b3792.bindPopup(popup_5bccc7e7c3958a96bc2afe8e63f6b5f1)
-        ;
-
-        
-    
-    
-                marker_23c06003583fb8533d5e00cef03b3792.setIcon(icon_08c4f21ce3a661fad79f1050b78fd0eb);
-            
-    
-            var circle_cd0413e12e00b440653fda324127d4a8 = L.circle(
-                [13.861, 100.862],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60000.0, "stroke": true, "weight": 1}
-            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
-        
-    
-            var marker_91e0d0e094748c78fb943b64a08ea9af = L.marker(
-                [13.701, 100.338],
-                {
-}
-            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
-        
-    
-            var icon_14e9bb27a05d07c47036a39c7db5a524 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_71aa3f467b20ff223a96abbb9026390e = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_b5fe9c16d736530da7608b627227d230 = $(`<div id="html_b5fe9c16d736530da7608b627227d230" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Khaem</div>`)[0];
-                popup_71aa3f467b20ff223a96abbb9026390e.setContent(html_b5fe9c16d736530da7608b627227d230);
-            
-        
-
-        marker_91e0d0e094748c78fb943b64a08ea9af.bindPopup(popup_71aa3f467b20ff223a96abbb9026390e)
-        ;
-
-        
-    
-    
-                marker_91e0d0e094748c78fb943b64a08ea9af.setIcon(icon_14e9bb27a05d07c47036a39c7db5a524);
-            
-    
-            var circle_c2cdfca6b45450b76236029e28aa5d92 = L.circle(
-                [13.701, 100.338],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60000.0, "stroke": true, "weight": 1}
-            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
+            tile_layer_53d2f24dfe356b5982362d6a2a654f71.addTo(map_be1dbe5df8426182b51186fc624af74c);
         
 </script>
 </html>
