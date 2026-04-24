@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_e4a6f6230adc4302b6c035c16d61c045 {
+                #map_4750624214f7d50bc7dff481d9d84a05 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,7 +54,7 @@
 <body>
     
     
-            <div class="folium-map" id="map_e4a6f6230adc4302b6c035c16d61c045" ></div>
+            <div class="folium-map" id="map_4750624214f7d50bc7dff481d9d84a05" ></div>
         
     
 <div style="position: fixed; bottom: 30px; left: 30px; width: 170px; background-color: white; border:2px solid #ccc; z-index:9999; font-size:12px; padding: 10px; border-radius: 8px;">
@@ -69,13 +69,13 @@
 <script>
     
     
-            var map_e4a6f6230adc4302b6c035c16d61c045 = L.map(
-                "map_e4a6f6230adc4302b6c035c16d61c045",
+            var map_4750624214f7d50bc7dff481d9d84a05 = L.map(
+                "map_4750624214f7d50bc7dff481d9d84a05",
                 {
                     center: [13.75, 100.5],
                     crs: L.CRS.EPSG3857,
                     ...{
-  "zoom": 11,
+  "zoom": 10,
   "zoomControl": true,
   "preferCanvas": false,
 }
@@ -87,7 +87,7 @@
 
         
     
-            var tile_layer_466c7989ed326e7c1306511b25bcd650 = L.tileLayer(
+            var tile_layer_be4a55c0a1cd0bf1b2ac3234127f5dea = L.tileLayer(
                 "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
                 {
   "minZoom": 0,
@@ -104,7 +104,129 @@
             );
         
     
-            tile_layer_466c7989ed326e7c1306511b25bcd650.addTo(map_e4a6f6230adc4302b6c035c16d61c045);
+            tile_layer_be4a55c0a1cd0bf1b2ac3234127f5dea.addTo(map_4750624214f7d50bc7dff481d9d84a05);
         
+    
+            var marker_1446f30d17da30deaa715318619df6bb = L.marker(
+                [13.861, 100.862],
+                {
+}
+            ).addTo(map_4750624214f7d50bc7dff481d9d84a05);
+        
+    
+            var icon_520c80543c4296685eb7f5deae4c30e9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ab41ebeaf97029a8f961b83d6b166bdf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_03e479e8dc3b4cc7e2072c8416348b7e = $(`<div id="html_03e479e8dc3b4cc7e2072c8416348b7e" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Chok (หนองจอก)</div>`)[0];
+                popup_ab41ebeaf97029a8f961b83d6b166bdf.setContent(html_03e479e8dc3b4cc7e2072c8416348b7e);
+            
+        
+
+        marker_1446f30d17da30deaa715318619df6bb.bindPopup(popup_ab41ebeaf97029a8f961b83d6b166bdf)
+        ;
+
+        
+    
+    
+                marker_1446f30d17da30deaa715318619df6bb.setIcon(icon_520c80543c4296685eb7f5deae4c30e9);
+            
+    
+            var circle_8370238bfb36a91916b0908463242f1e = L.circle(
+                [13.861, 100.862],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60000.0, "stroke": true, "weight": 1}
+            ).addTo(map_4750624214f7d50bc7dff481d9d84a05);
+        
+    
+        var popup_0cbf14897be335ae2363886f7abb59d1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d18b8fd3ee8f15e2feb48d623a6ae863 = $(`<div id="html_d18b8fd3ee8f15e2feb48d623a6ae863" style="width: 100.0%; height: 100.0%;">ขอบเขต 60 กม. (Nong Chok (หนองจอก))</div>`)[0];
+                popup_0cbf14897be335ae2363886f7abb59d1.setContent(html_d18b8fd3ee8f15e2feb48d623a6ae863);
+            
+        
+
+        circle_8370238bfb36a91916b0908463242f1e.bindPopup(popup_0cbf14897be335ae2363886f7abb59d1)
+        ;
+
+        
+    
+    
+            var marker_09e26e9f7195514fec8b23f027cb04b8 = L.marker(
+                [13.701, 100.338],
+                {
+}
+            ).addTo(map_4750624214f7d50bc7dff481d9d84a05);
+        
+    
+            var icon_02d4e4ccc768d5d6b704c68e7ba7480c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8aaef4318925cd3d8602ccf6082bfe78 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8ae4c6bb7e652e6e63e315b2016e70d2 = $(`<div id="html_8ae4c6bb7e652e6e63e315b2016e70d2" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Khaem (หนองแขม)</div>`)[0];
+                popup_8aaef4318925cd3d8602ccf6082bfe78.setContent(html_8ae4c6bb7e652e6e63e315b2016e70d2);
+            
+        
+
+        marker_09e26e9f7195514fec8b23f027cb04b8.bindPopup(popup_8aaef4318925cd3d8602ccf6082bfe78)
+        ;
+
+        
+    
+    
+                marker_09e26e9f7195514fec8b23f027cb04b8.setIcon(icon_02d4e4ccc768d5d6b704c68e7ba7480c);
+            
+    
+            var circle_e6d5bfb45587654cc45a09c522c80f9e = L.circle(
+                [13.701, 100.338],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60000.0, "stroke": true, "weight": 1}
+            ).addTo(map_4750624214f7d50bc7dff481d9d84a05);
+        
+    
+        var popup_bf818c4f85789b3b77973af394100ce9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ae14ed07c89194634798d170bc0475e6 = $(`<div id="html_ae14ed07c89194634798d170bc0475e6" style="width: 100.0%; height: 100.0%;">ขอบเขต 60 กม. (Nong Khaem (หนองแขม))</div>`)[0];
+                popup_bf818c4f85789b3b77973af394100ce9.setContent(html_ae14ed07c89194634798d170bc0475e6);
+            
+        
+
+        circle_e6d5bfb45587654cc45a09c522c80f9e.bindPopup(popup_bf818c4f85789b3b77973af394100ce9)
+        ;
+
+        
+    
 </script>
 </html>
