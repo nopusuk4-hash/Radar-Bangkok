@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_b28e062b50a5f0e1a80ce50f0ca7aa50 {
+                #map_e5e0c990b27acb28e9858c8c95ef38b9 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,23 +54,14 @@
 <body>
     
     
-            <div class="folium-map" id="map_b28e062b50a5f0e1a80ce50f0ca7aa50" ></div>
+            <div class="folium-map" id="map_e5e0c990b27acb28e9858c8c95ef38b9" ></div>
         
-    
-<div style="position: fixed; bottom: 30px; left: 30px; width: 170px; background-color: white; border:2px solid #ccc; z-index:9999; font-size:12px; padding: 10px; border-radius: 8px;">
-    <b>ความแรงฝน (dBZ)</b><br>
-    <i style="background:#FF00FF;width:12px;height:12px;display:inline-block"></i> 60+ (หนักมาก)<br>
-    <i style="background:#FF0000;width:12px;height:12px;display:inline-block"></i> 50-60 (หนัก)<br>
-    <i style="background:#FF8000;width:12px;height:12px;display:inline-block"></i> 40-50 (กลาง)<br>
-    <i style="background:#FFFF00;width:12px;height:12px;display:inline-block"></i> 30-40 (อ่อน)<br>
-    <i style="background:#00FF00;width:12px;height:12px;display:inline-block"></i> 20-30 (เบา)
-</div>
 </body>
 <script>
     
     
-            var map_b28e062b50a5f0e1a80ce50f0ca7aa50 = L.map(
-                "map_b28e062b50a5f0e1a80ce50f0ca7aa50",
+            var map_e5e0c990b27acb28e9858c8c95ef38b9 = L.map(
+                "map_e5e0c990b27acb28e9858c8c95ef38b9",
                 {
                     center: [13.75, 100.5],
                     crs: L.CRS.EPSG3857,
@@ -87,7 +78,7 @@
 
         
     
-            var tile_layer_b8a0e99d459b2153362ca6d90baa009f = L.tileLayer(
+            var tile_layer_026784b61591a2f9ae8b288a100d8b5a = L.tileLayer(
                 "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
                 {
   "minZoom": 0,
@@ -104,17 +95,17 @@
             );
         
     
-            tile_layer_b8a0e99d459b2153362ca6d90baa009f.addTo(map_b28e062b50a5f0e1a80ce50f0ca7aa50);
+            tile_layer_026784b61591a2f9ae8b288a100d8b5a.addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
         
     
-            var marker_eee5392f50c03f7c0189de7696c9552d = L.marker(
+            var marker_23c06003583fb8533d5e00cef03b3792 = L.marker(
                 [13.861, 100.862],
                 {
 }
-            ).addTo(map_b28e062b50a5f0e1a80ce50f0ca7aa50);
+            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
         
     
-            var icon_4269ebcd7b66449a7b64f3466b57dfd7 = L.AwesomeMarkers.icon(
+            var icon_08c4f21ce3a661fad79f1050b78fd0eb = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -125,57 +116,40 @@
             );
         
     
-        var popup_1a2b055f1c2533267c02bbc9516f65e7 = L.popup({
+        var popup_5bccc7e7c3958a96bc2afe8e63f6b5f1 = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_0c927ede20899c58124a8949614e206c = $(`<div id="html_0c927ede20899c58124a8949614e206c" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Chok (หนองจอก)</div>`)[0];
-                popup_1a2b055f1c2533267c02bbc9516f65e7.setContent(html_0c927ede20899c58124a8949614e206c);
+                var html_11f9f738f08a1888e30438c733f14767 = $(`<div id="html_11f9f738f08a1888e30438c733f14767" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Chok</div>`)[0];
+                popup_5bccc7e7c3958a96bc2afe8e63f6b5f1.setContent(html_11f9f738f08a1888e30438c733f14767);
             
         
 
-        marker_eee5392f50c03f7c0189de7696c9552d.bindPopup(popup_1a2b055f1c2533267c02bbc9516f65e7)
+        marker_23c06003583fb8533d5e00cef03b3792.bindPopup(popup_5bccc7e7c3958a96bc2afe8e63f6b5f1)
         ;
 
         
     
     
-                marker_eee5392f50c03f7c0189de7696c9552d.setIcon(icon_4269ebcd7b66449a7b64f3466b57dfd7);
+                marker_23c06003583fb8533d5e00cef03b3792.setIcon(icon_08c4f21ce3a661fad79f1050b78fd0eb);
             
     
-            var circle_f8750213bfac0d0c18ca96f7acc688f2 = L.circle(
+            var circle_cd0413e12e00b440653fda324127d4a8 = L.circle(
                 [13.861, 100.862],
                 {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60000.0, "stroke": true, "weight": 1}
-            ).addTo(map_b28e062b50a5f0e1a80ce50f0ca7aa50);
+            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
         
     
-        var popup_5ce33b876cdf073f57cfc42262bda5de = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_9e535ba05ba116d2d0e0626ea8a8e5fc = $(`<div id="html_9e535ba05ba116d2d0e0626ea8a8e5fc" style="width: 100.0%; height: 100.0%;">ขอบเขต 60 กม. (Nong Chok (หนองจอก))</div>`)[0];
-                popup_5ce33b876cdf073f57cfc42262bda5de.setContent(html_9e535ba05ba116d2d0e0626ea8a8e5fc);
-            
-        
-
-        circle_f8750213bfac0d0c18ca96f7acc688f2.bindPopup(popup_5ce33b876cdf073f57cfc42262bda5de)
-        ;
-
-        
-    
-    
-            var marker_d552a6a27f63b80e74bb967f2b51a148 = L.marker(
+            var marker_91e0d0e094748c78fb943b64a08ea9af = L.marker(
                 [13.701, 100.338],
                 {
 }
-            ).addTo(map_b28e062b50a5f0e1a80ce50f0ca7aa50);
+            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
         
     
-            var icon_2d88965a14b581d0b1c7a4c67ef7975d = L.AwesomeMarkers.icon(
+            var icon_14e9bb27a05d07c47036a39c7db5a524 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -186,47 +160,30 @@
             );
         
     
-        var popup_56e4cc7c6f57b6631811f906487527f5 = L.popup({
+        var popup_71aa3f467b20ff223a96abbb9026390e = L.popup({
   "maxWidth": "100%",
 });
 
         
             
-                var html_cfef2ed876aab1c0797211e1b40797c8 = $(`<div id="html_cfef2ed876aab1c0797211e1b40797c8" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Khaem (หนองแขม)</div>`)[0];
-                popup_56e4cc7c6f57b6631811f906487527f5.setContent(html_cfef2ed876aab1c0797211e1b40797c8);
+                var html_b5fe9c16d736530da7608b627227d230 = $(`<div id="html_b5fe9c16d736530da7608b627227d230" style="width: 100.0%; height: 100.0%;"><b>สถานีเรดาร์:</b> Nong Khaem</div>`)[0];
+                popup_71aa3f467b20ff223a96abbb9026390e.setContent(html_b5fe9c16d736530da7608b627227d230);
             
         
 
-        marker_d552a6a27f63b80e74bb967f2b51a148.bindPopup(popup_56e4cc7c6f57b6631811f906487527f5)
+        marker_91e0d0e094748c78fb943b64a08ea9af.bindPopup(popup_71aa3f467b20ff223a96abbb9026390e)
         ;
 
         
     
     
-                marker_d552a6a27f63b80e74bb967f2b51a148.setIcon(icon_2d88965a14b581d0b1c7a4c67ef7975d);
+                marker_91e0d0e094748c78fb943b64a08ea9af.setIcon(icon_14e9bb27a05d07c47036a39c7db5a524);
             
     
-            var circle_c25aee3da1a8a3053d8b61e6568b5d8a = L.circle(
+            var circle_c2cdfca6b45450b76236029e28aa5d92 = L.circle(
                 [13.701, 100.338],
                 {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60000.0, "stroke": true, "weight": 1}
-            ).addTo(map_b28e062b50a5f0e1a80ce50f0ca7aa50);
+            ).addTo(map_e5e0c990b27acb28e9858c8c95ef38b9);
         
-    
-        var popup_addd683b1d0b39c05087c029db917866 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_58a6f72b1a3256e4795a540a032b9ce3 = $(`<div id="html_58a6f72b1a3256e4795a540a032b9ce3" style="width: 100.0%; height: 100.0%;">ขอบเขต 60 กม. (Nong Khaem (หนองแขม))</div>`)[0];
-                popup_addd683b1d0b39c05087c029db917866.setContent(html_58a6f72b1a3256e4795a540a032b9ce3);
-            
-        
-
-        circle_c25aee3da1a8a3053d8b61e6568b5d8a.bindPopup(popup_addd683b1d0b39c05087c029db917866)
-        ;
-
-        
-    
 </script>
 </html>
