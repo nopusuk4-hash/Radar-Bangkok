@@ -1,6 +1,9 @@
 import numpy as np
 import requests
 import math
+import os
+import pandas as pd
+from datetime import datetime, timedelta
 from PIL import Image
 from io import BytesIO
 import folium
@@ -10,8 +13,8 @@ from branca.element import Template, MacroElement
 STEP_KM = 0.4
 RADAR_RANGE_KM = 60.0
 CONFIGS = {
-    "Nong Chok": {"url": "https://weather.bangkok.go.th/Images/Radar/radar.gif", "lat": 13.861, "lon": 100.862},
-    "Nong Khaem": {"url": "https://weather.bangkok.go.th/Images/Radar/nkradar.gif", "lat": 13.701, "lon": 100.338}
+    "Nong Chok (หนองจอก)": {"url": "https://weather.bangkok.go.th/Images/Radar/radar.gif", "lat": 13.861, "lon": 100.862},
+    "Nong Khaem (หนองแขม)": {"url": "https://weather.bangkok.go.th/Images/Radar/nkradar.gif", "lat": 13.701, "lon": 100.338}
 }
 
 def rgb_to_dbz(r, g, b):
@@ -33,7 +36,14 @@ def get_dbz_color(dbz):
     if dbz >= 20: return '#00FF00'
     return '#008000'
 
+# ดึงเวลาปัจจุบัน (ปรับเป็นเวลาไทย GMT+7)
+now = datetime.utcnow() + timedelta(hours=7)
+timestamp_str = now.strftime('%Y-%m-%d %H:%M:%S')
+date_str = now.strftime('%Y-%m-%d')
+
 all_rain_data = []
+csv_data = [] # สำหรับเตรียมบันทึกลง CSV
+
 for name, conf in CONFIGS.items():
     try:
         res = requests.get(conf["url"], headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
@@ -52,11 +62,46 @@ for name, conf in CONFIGS.items():
                         lat = conf["lat"] + (y_km/111.0)
                         lon = conf["lon"] + (x_km/(111.0*math.cos(math.radians(conf["lat"]))))
                         all_rain_data.append([lat, lon, dbz])
+                        csv_data.append([timestamp_str, name, lat, lon, dbz])
     except: pass
 
-# สร้างแผนที่
-m = folium.Map(location=[13.75, 100.5], zoom_start=11, tiles='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attr='©CartoDB')
+# ==========================================
+# 1. แอบบันทึกข้อมูลดิบลงไฟล์ CSV (แยกตามวัน)
+# ==========================================
+if csv_data:
+    os.makedirs("data", exist_ok=True) # สร้างโฟลเดอร์ชื่อ data
+    csv_filename = f"data/radar_{date_str}.csv"
+    df = pd.DataFrame(csv_data, columns=['Timestamp', 'Station', 'Latitude', 'Longitude', 'dBZ'])
+    
+    if os.path.exists(csv_filename):
+        # ถ้ามีไฟล์ของวันนี้แล้ว ให้เอาไปต่อท้าย (Append)
+        df.to_csv(csv_filename, mode='a', header=False, index=False)
+    else:
+        # ถ่ายังไม่มี (ขึ้นวันใหม่) ให้สร้างใหม่พร้อมหัวตาราง
+        df.to_csv(csv_filename, index=False)
 
+# ==========================================
+# 2. สร้างแผนที่ (เพิ่มหมุดและรัศมี)
+# ==========================================
+# ซูมออกนิดนึง (zoom_start=10) เพื่อให้เห็นวงกลมชัดขึ้น
+m = folium.Map(location=[13.75, 100.5], zoom_start=10, tiles='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attr='©CartoDB')
+
+# วาดสถานีและวงกลมรัศมี 60 กม.
+for name, conf in CONFIGS.items():
+    folium.Marker(
+        location=[conf["lat"], conf["lon"]],
+        popup=f"<b>สถานีเรดาร์:</b> {name}",
+        icon=folium.Icon(color='blue', icon='info-sign')
+    ).add_to(m)
+    
+    folium.Circle(
+        location=[conf["lat"], conf["lon"]],
+        radius=RADAR_RANGE_KM * 1000, # รัศมี 60 กิโลเมตร
+        color='blue', weight=1, fill=False, dash_array='5, 5',
+        popup=f"ขอบเขต 60 กม. ({name})"
+    ).add_to(m)
+
+# พลอตจุดฝน
 for p in all_rain_data:
     folium.CircleMarker(
         location=[p[0], p[1]], radius=2.5,
@@ -80,5 +125,5 @@ macro = MacroElement()
 macro._template = Template(legend_html)
 m.get_root().add_child(macro)
 
-# บันทึกทับไฟล์ index.html
+# บันทึกทับไฟล์
 m.save("index.html")
